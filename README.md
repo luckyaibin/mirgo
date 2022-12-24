@@ -19,10 +19,10 @@
 --------------------
   * 进入目录 mirgo/cmd/server
   * 新建 config.toml, 文件内容 DataPath="服务端资源绝对路径(mir2ServerRelease)"
-  * go mod vendor 
-  * go build 
+  * go mod vendor
+  * go build
   * ./server
-  
+
 联系方式
 --------------------
   * QQ 群: 32309474
@@ -35,7 +35,7 @@
 
 感谢贡献者
 --------------------
-  * @qcdong2016 
+  * @qcdong2016
   * @firma
 
 参考资料
@@ -44,3 +44,9 @@
 - [知乎 - 行为树](https://www.zhihu.com/search?type=content&q=%E8%A1%8C%E4%B8%BA%E6%A0%91)
 - [行为树概念与结构](https://zhuanlan.zhihu.com/p/92298402)
 - [行为树（Behavior Tree）实践（1）– 基本概念](http://www.aisharing.com/archives/90)
+
+怎么运行
+--------------------
+- 因为客户端使用的是最新的 https://github.com/Suprcode/mir2 代码，协议编号不统一，所以在go里添加了一些空白的协议
+- 客户端代码是 https://github.com/Suprcode/mir2 的Releases的v2022.06.12.00 版本。也经过了修改，要不然莫名跑不起来，主要是空指针。
+  使用本仓库修改过的crystal mir2客户端可以运行
