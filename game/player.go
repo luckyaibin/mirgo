@@ -25,8 +25,8 @@ type Player struct {
 	GameStage int
 	Session   *cellnet.Session
 	MapObject
-	HP                   uint16
-	MP                   uint16
+	HP                   uint32
+	MP                   uint32
 	Level                uint16
 	Experience           int64
 	MaxExperience        int64
@@ -49,8 +49,8 @@ type Player struct {
 	LooksWeaponEffect    int
 	SendItemInfo         []*cm.ItemInfo
 	CurrentBagWeight     int
-	MaxHP                uint16
-	MaxMP                uint16
+	MaxHP                uint32
+	MaxMP                uint32
 	MinAC                uint16 // 物理防御力
 	MaxAC                uint16
 	MinMAC               uint16 // 魔法防御力
@@ -605,7 +605,7 @@ func (p *Player) RefreshLevelStats() {
 	} else {
 		p.MaxExperience = 0
 	}
-	p.MaxHP = uint16(14 + (float32(p.Level)/baseStats.HpGain+baseStats.HpGainRate)*float32(p.Level))
+	p.MaxHP = uint32(14 + (float32(p.Level)/baseStats.HpGain+baseStats.HpGainRate)*float32(p.Level))
 	p.MinAC = 0
 	if baseStats.MinAc > 0 {
 		p.MinAC = uint16(int(p.Level) / baseStats.MinAc)
@@ -659,12 +659,12 @@ func (p *Player) RefreshLevelStats() {
 	p.MaxHandWeight = uint16(12.0 + float32(p.Level)/baseStats.HandWeightGain*float32(p.Level))
 	switch p.Class {
 	case cm.MirClassWarrior:
-		p.MaxHP = uint16(14.0 + (float32(p.Level)/baseStats.HpGain+baseStats.HpGainRate+float32(p.Level)/20.0)*float32(p.Level))
-		p.MaxMP = uint16(11.0 + (float32(p.Level) * 3.5) + (float32(p.Level) * baseStats.MpGainRate))
+		p.MaxHP = uint32(14.0 + (float32(p.Level)/baseStats.HpGain+baseStats.HpGainRate+float32(p.Level)/20.0)*float32(p.Level))
+		p.MaxMP = uint32(11.0 + (float32(p.Level) * 3.5) + (float32(p.Level) * baseStats.MpGainRate))
 	case cm.MirClassWizard:
-		p.MaxMP = uint16(13.0 + (float32(p.Level/5.0+2.0) * 2.2 * float32(p.Level)) + (float32(p.Level) * baseStats.MpGainRate))
+		p.MaxMP = uint32(13.0 + (float32(p.Level/5.0+2.0) * 2.2 * float32(p.Level)) + (float32(p.Level) * baseStats.MpGainRate))
 	case cm.MirClassTaoist:
-		p.MaxMP = uint16((13 + float32(p.Level)/8.0*2.2*float32(p.Level)) + (float32(p.Level) * baseStats.MpGainRate))
+		p.MaxMP = uint32((13 + float32(p.Level)/8.0*2.2*float32(p.Level)) + (float32(p.Level) * baseStats.MpGainRate))
 	}
 }
 
@@ -707,8 +707,8 @@ func (p *Player) RefreshEquipmentStats() {
 		p.MaxMC = util.Uint16(int(p.MaxMC) + int(RealItem.MaxMC) + int(temp.MC))
 		p.MinSC = util.Uint16(int(p.MinSC) + int(RealItem.MinSC))
 		p.MaxSC = util.Uint16(int(p.MaxSC) + int(RealItem.MaxSC) + int(temp.SC))
-		p.MaxHP = util.Uint16(int(p.MaxHP) + int(RealItem.HP) + int(temp.HP))
-		p.MaxMP = util.Uint16(int(p.MaxMP) + int(RealItem.MP) + int(temp.MP))
+		p.MaxHP = uint32(int(p.MaxHP) + int(RealItem.HP) + int(temp.HP))
+		p.MaxMP = uint32(int(p.MaxMP) + int(RealItem.MP) + int(temp.MP))
 
 		p.MaxBagWeight = util.Uint16(int(p.MaxBagWeight) + int(RealItem.BagWeight))
 		p.MaxWearWeight = util.Uint16(int(p.MaxWearWeight) + int(RealItem.WearWeight))
@@ -1234,14 +1234,14 @@ func (p *Player) WinExp(amount, targetLevel int) {
 }
 
 func (p *Player) SetHP(amount uint32) {
-	if p.HP == uint16(amount) {
+	if p.HP == uint32(amount) {
 		return
 	}
 	if amount >= uint32(p.MaxHP) {
 		amount = uint32(p.MaxHP)
 	}
 
-	p.HP = uint16(amount)
+	p.HP = uint32(amount)
 
 	if !p.IsDead() && p.HP == 0 {
 		p.Die()
@@ -1253,11 +1253,11 @@ func (p *Player) SetHP(amount uint32) {
 }
 
 func (p *Player) SetMP(amount uint32) {
-	if p.MP == uint16(amount) {
+	if p.MP == uint32(amount) {
 		return
 	}
 
-	p.MP = uint16(amount)
+	p.MP = uint32(amount)
 	msg := ServerMessage{}.HealthChanged(p.HP, p.MP)
 	p.Enqueue(msg)
 	p.BroadcastHealthChange()
@@ -2817,7 +2817,7 @@ func (p *Player) Magic(spell cm.Spell, direction cm.MirDirection, targetID uint3
 	}
 	info := data.GetMagicInfoByID(magic.MagicID)
 	cost := info.BaseCost + info.LevelCost*magic.Level
-	if uint16(cost) > p.MP {
+	if uint32(cost) > p.MP {
 		p.Enqueue(ServerMessage{}.UserLocation(p))
 		return
 	}

@@ -360,8 +360,8 @@ func decodeUserInformation(data interface{}, msgObj *server.UserInformation) err
 	ui.Location = cm.Point{X: uint32(x), Y: uint32(y)}
 	ui.Direction = cm.MirDirection(reader.ReadByte())
 	ui.Hair = reader.ReadUInt8()
-	ui.HP = reader.ReadUInt16()
-	ui.MP = reader.ReadUInt16()
+	ui.HP = reader.ReadUInt32()
+	ui.MP = reader.ReadUInt32()
 	ui.Experience = reader.ReadInt64()
 	ui.MaxExperience = reader.ReadInt64()
 	ui.LevelEffect = cm.LevelEffects(reader.ReadUInt8())

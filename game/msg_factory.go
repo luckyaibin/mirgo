@@ -77,6 +77,7 @@ func (ServerMessage) ObjectMonster(m *Monster) *server.ObjectMonster {
 		BindingShotCenter: false, // TODO
 		Extra:             false, // TODO
 		ExtraByte:         0,     // TODO
+		BufCount:          0,     // TODO
 	}
 }
 
@@ -116,6 +117,7 @@ func (ServerMessage) ObjectNPC(n *NPC) *server.ObjectNPC {
 
 func (ServerMessage) MapInformation(info *cm.MapInfo) *server.MapInformation {
 	mi := new(server.MapInformation)
+	mi.MapIndex = int32(info.ID)
 	mi.FileName = info.Filename
 	mi.Title = info.Title
 	mi.MiniMap = uint16(info.MiniMap)
@@ -391,7 +393,7 @@ func (ServerMessage) ObjectDied(id uint32, direction cm.MirDirection, location c
 	}
 }
 
-func (ServerMessage) HealthChanged(hp, mp uint16) *server.HealthChanged {
+func (ServerMessage) HealthChanged(hp, mp uint32) *server.HealthChanged {
 	return &server.HealthChanged{
 		HP: hp,
 		MP: mp,

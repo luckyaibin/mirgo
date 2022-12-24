@@ -66,8 +66,8 @@ type Character struct {
 	BindLocationX    int
 	BindLocationY    int
 	Direction        MirDirection
-	HP               uint16
-	MP               uint16
+	HP               uint32
+	MP               uint32
 	Experience       int64
 	AttackMode       AttackMode
 	PetMode          PetMode

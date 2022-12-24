@@ -1187,11 +1187,11 @@ func initServerMessage() {
 		Type:  reflect.TypeOf((*server.ItemRepaired)(nil)).Elem(),
 		ID:    server.ITEM_REPAIRED,
 	})
-	cellnet.RegisterMessageMeta(&cellnet.MessageMeta{
-		Codec: mirCodec,
-		Type:  reflect.TypeOf((*server.NewMagic)(nil)).Elem(),
-		ID:    server.NEW_MAGIC,
-	})
+	// cellnet.RegisterMessageMeta(&cellnet.MessageMeta{
+	// 	Codec: mirCodec,
+	// 	Type:  reflect.TypeOf((*server.NewMagic)(nil)).Elem(),
+	// 	ID:    server.NEW_MAGIC,
+	// })
 	cellnet.RegisterMessageMeta(&cellnet.MessageMeta{
 		Codec: mirCodec,
 		Type:  reflect.TypeOf((*server.RemoveMagic)(nil)).Elem(),
@@ -1612,21 +1612,21 @@ func initServerMessage() {
 		Type:  reflect.TypeOf((*server.SetConcentration)(nil)).Elem(),
 		ID:    server.SET_CONCENTRATION,
 	})
-	cellnet.RegisterMessageMeta(&cellnet.MessageMeta{
-		Codec: mirCodec,
-		Type:  reflect.TypeOf((*server.SetObjectConcentration)(nil)).Elem(),
-		ID:    server.SET_OBJECT_CONCENTRATION,
-	})
+	// cellnet.RegisterMessageMeta(&cellnet.MessageMeta{
+	// 	Codec: mirCodec,
+	// 	Type:  reflect.TypeOf((*server.SetObjectConcentration)(nil)).Elem(),
+	// 	ID:    server.SET_OBJECT_CONCENTRATION,
+	// })
 	cellnet.RegisterMessageMeta(&cellnet.MessageMeta{
 		Codec: mirCodec,
 		Type:  reflect.TypeOf((*server.SetElemental)(nil)).Elem(),
 		ID:    server.SET_ELEMENTAL,
 	})
-	cellnet.RegisterMessageMeta(&cellnet.MessageMeta{
-		Codec: mirCodec,
-		Type:  reflect.TypeOf((*server.SetObjectElemental)(nil)).Elem(),
-		ID:    server.SET_OBJECT_ELEMENTAL,
-	})
+	// cellnet.RegisterMessageMeta(&cellnet.MessageMeta{
+	// 	Codec: mirCodec,
+	// 	Type:  reflect.TypeOf((*server.SetObjectElemental)(nil)).Elem(),
+	// 	ID:    server.SET_OBJECT_ELEMENTAL,
+	// })
 	cellnet.RegisterMessageMeta(&cellnet.MessageMeta{
 		Codec: mirCodec,
 		Type:  reflect.TypeOf((*server.RemoveDelayedExplosion)(nil)).Elem(),

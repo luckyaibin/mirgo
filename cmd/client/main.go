@@ -181,7 +181,7 @@ func main() {
 			//log.Infof("<--- server.ClientVersion")
 		case *server.KeepAlive:
 			//log.Infof("<--- server.KeepAlive")
-			session.Send(&client.KeepAlive{Time: 0})
+			//session.Send(&client.KeepAlive{Time: 0})
 		case *server.Chat:
 		case *server.ObjectTurn:
 			log.Infof("<--- server.ObjectTurn %d, %s\n", msg.ObjectID, directionIcon(msg.Direction))

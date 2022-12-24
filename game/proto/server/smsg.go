@@ -28,9 +28,14 @@ const (
 	START_GAME_BANNED
 	START_GAME_DELAY
 	MAP_INFORMATION
+	xxxxxx_NewMapInfo
+	xxxxxx_WorldMapSetup
+	xxxxxx_SearchMapResult
 	USER_INFORMATION
+	xxxxxx_UserSlotsRefresh
 	USER_LOCATION
 	OBJECT_PLAYER
+	xxxxxx_ObjectHero
 	OBJECT_REMOVE
 	OBJECT_TURN
 	OBJECT_WALK
@@ -38,6 +43,8 @@ const (
 	CHAT
 	OBJECT_CHAT
 	NEW_ITEM_INFO
+	xxxxxx_NewHeroInfo
+	xxxxxx_NewChatItem
 	MOVE_ITEM
 	EQUIP_ITEM
 	MERGE_ITEM
@@ -55,10 +62,13 @@ const (
 	RETRIEVE_TRADE_ITEM
 	USE_ITEM
 	DROP_ITEM
+	xxxxxx_TakeBackHeroItem
+	xxxxxx_TransferHeroItem
 	PLAYER_UPDATE
 	PLAYER_INSPECT
 	LOG_OUT_SUCCESS
 	LOG_OUT_FAILED
+	xxxxxx_ReturnToLogin
 	TIME_OF_DAY
 	CHANGE_A_MODE
 	CHANGE_P_MODE
@@ -76,6 +86,7 @@ const (
 	DAMAGE_INDICATOR
 	DURA_CHANGED
 	HEALTH_CHANGED
+	xxxxxx_HeroHealthChanged
 	DELETE_ITEM
 	DEATH
 	OBJECT_DIED
@@ -83,7 +94,9 @@ const (
 	OBJECT_COLOUR_CHANGED
 	OBJECT_GUILD_NAME_CHANGED
 	GAIN_EXPERIENCE
+	xxxxxx_GainHeroExperience
 	LEVEL_CHANGED
+	xxxxxx_HeroLevelChanged
 	OBJECT_LEVELED
 	OBJECT_HARVEST
 	OBJECT_HARVESTED
@@ -110,6 +123,8 @@ const (
 	CRAFT_ITEM
 	REPAIR_ITEM
 	ITEM_REPAIRED
+	xxxxxx_ItemSlotSizeChanged
+	xxxxxx_ItemSealChanged
 	NEW_MAGIC
 	REMOVE_MAGIC
 	MAGIC_LEVELED
@@ -118,6 +133,7 @@ const (
 	MAGIC_CAST
 	OBJECT_MAGIC
 	OBJECT_EFFECT
+	xxxxxx_ObjectProjectile
 	RANGE_ATTACK
 	PUSHED
 	OBJECT_PUSHED
@@ -132,10 +148,13 @@ const (
 	OBJECT_REVIVED
 	SPELL_TOGGLE
 	OBJECT_HEALTH
+	xxxxxx_ObjectMana
 	MAP_EFFECT
+	xxxxxx_AllowObserve
 	OBJECT_RANGE_ATTACK
 	ADD_BUFF
 	REMOVE_BUFF
+	xxxxxx_PauseBuff
 	OBJECT_HIDDEN
 	REFRESH_ITEM
 	OBJECT_SPELL
@@ -152,6 +171,7 @@ const (
 	OBJECT_SIT_DOWN
 	IN_TRAP_ROCK
 	BASE_STATS_INFO
+	xxxxxx_HeroBaseStatsInfo
 	USER_NAME
 	CHAT_ITEM_STATS
 	GUILD_NOTICE_CHANGE
@@ -164,6 +184,16 @@ const (
 	GUILD_STORAGE_ITEM_CHANGE
 	GUILD_STORAGE_LIST
 	GUILD_REQUEST_WAR
+	xxxxxx_HeroCreateRequest
+	xxxxxx_NewHero
+	xxxxxx_HeroInformation
+	xxxxxx_UpdateHeroSpawnState
+	xxxxxx_UnlockHeroAutoPot
+	xxxxxx_SetAutoPotValue
+	xxxxxx_SetAutoPotItem
+	xxxxxx_SetHeroBehaviour
+	xxxxxx_ManageHeroes
+	xxxxxx_ChangeHero
 	DEFAULT_NPC
 	NPC_UPDATE
 	NPC_IMAGE_UPDATE
@@ -194,11 +224,9 @@ const (
 	USER_ATTACK_MOVE
 	COMBINE_ITEM
 	ITEM_UPGRADED
-	SET_CONCENTRATION
-	SET_OBJECT_CONCENTRATION
+	SET_CONCENTRATION //SET_OBJECT_CONCENTRATION
 	SET_ELEMENTAL
-	SET_OBJECT_ELEMENTAL
-	REMOVE_DELAYED_EXPLOSION
+	REMOVE_DELAYED_EXPLOSION //SET_OBJECT_ELEMENTAL
 	OBJECT_DECO
 	OBJECT_SNEAKING
 	OBJECT_LEVEL_EFFECTS
@@ -248,6 +276,12 @@ const (
 	CONFIRM_ITEM_RENTAL
 	NEW_RECIPE_INFO
 	OPEN_BROWSER
+	xxxxxx_PlaySound
+	xxxxxx_SetTimer
+	xxxxxx_ExpireTimer
+	xxxxxx_UpdateNotice
+	xxxxxx_Roll
+	xxxxxx_SetCompass
 )
 
 type Connected struct{}
@@ -349,6 +383,7 @@ type StartGameDelay struct {
 }
 
 type MapInformation struct {
+	MapIndex     int32
 	FileName     string
 	Title        string
 	MiniMap      uint16
@@ -372,8 +407,8 @@ type UserInformation struct {
 	Location                  cm.Point
 	Direction                 cm.MirDirection
 	Hair                      uint8
-	HP                        uint16
-	MP                        uint16
+	HP                        uint32
+	MP                        uint32
 	Experience                int64
 	MaxExperience             int64
 	LevelEffect               cm.LevelEffects
@@ -670,6 +705,7 @@ type ObjectMonster struct {
 	BindingShotCenter bool
 	Extra             bool
 	ExtraByte         uint8
+	BufCount          uint32
 }
 
 func (msg *ObjectMonster) String() string {
@@ -710,8 +746,8 @@ type DuraChanged struct {
 }
 
 type HealthChanged struct {
-	HP uint16
-	MP uint16
+	HP uint32
+	MP uint32
 }
 
 type DeleteItem struct {

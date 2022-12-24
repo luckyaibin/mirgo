@@ -303,7 +303,7 @@ func ServerSendLTVPacket(writer io.Writer, ctx cellnet.ContextSet, data interfac
 	printBytes := false
 	packetName := GetPacketName("server", int(util.BytesToUint16(pkt[2:4])))
 	if !skip[packetName] {
-		str := "---> 服务端发送 (" + packetName + ") " + strconv.Itoa(len(pkt))
+		str := "---> 服务端发送 (" + packetName + ") " + "id[" + strconv.Itoa(msgID) + "] 长度:" + strconv.Itoa(len(pkt))
 		if printBytes {
 			str += "字节: " + String(pkt)
 		}
