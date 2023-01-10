@@ -137,8 +137,8 @@ func New() (*Settings, error) {
 
 	return &Settings{
 		Addr:              "0.0.0.0:7000",
-		DBPath:            filepath.Join(conf.DataPath, "/mir.sqlite"),
-		AccountDBPath:     filepath.Join(conf.DataPath, "/account.sqlite"),
+		DBPath:            "host=localhost port=5432 sslmode=disable user=postgres dbname=mirgo.game password=123456",
+		AccountDBPath:     "host=localhost port=5432 sslmode=disable user=postgres dbname=mirgo.account password=123456",
 		MapDirPath:        filepath.Join(conf.DataPath, "/Maps/"),
 		DropDirPath:       filepath.Join(conf.DataPath, "/Envir/Drops/"),
 		EnvirPath:         filepath.Join(conf.DataPath, "/Envir/"),

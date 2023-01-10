@@ -16,7 +16,9 @@ import (
 	"github.com/davyxu/cellnet/timer"
 	"github.com/davyxu/golog"
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
+
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	//_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/yenkeia/mirgo/game/cm"
 	_ "github.com/yenkeia/mirgo/game/mirtcp"
 	"github.com/yenkeia/mirgo/game/proto/server"
@@ -92,13 +94,16 @@ func (g *Environ) ServerStart() {
 func NewEnviron() *Environ {
 	settings = setting.Must()
 
-	gameData, err := gorm.Open("sqlite3", settings.DBPath)
+	//gameData, err := gorm.Open("sqlite3", settings.DBPath)
+	gameData, err := gorm.Open("postgres", settings.DBPath)
 	if err != nil {
 		panic(err)
 	}
 	data = NewGameData(gameData)
 
-	accountData, err := gorm.Open("sqlite3", settings.AccountDBPath)
+	//accountData, err := gorm.Open("sqlite3", settings.AccountDBPath)
+	accountData, err := gorm.Open("postgres", settings.AccountDBPath)
+
 	if err != nil {
 		panic(err)
 	}
